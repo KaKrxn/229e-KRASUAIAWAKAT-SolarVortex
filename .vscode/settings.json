@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ProjectPhysics.sln"
+    "dotnet.defaultSolution": "Physics-Team.sln"
 }

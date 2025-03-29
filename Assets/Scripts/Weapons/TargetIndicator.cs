@@ -12,12 +12,15 @@ public class TargetIndicator : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // สร้าง Indicator และตั้ง Parent เป็น Canvas
         GameObject canvas = GameObject.Find("CanvasHUD");
-        if (canvas)
+        if (canvas && indicatorPrefab != null)
         {
             indicatorInstance = Instantiate(indicatorPrefab, canvas.transform);
             indicatorInstance.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("❌ CanvasHUD or indicatorPrefab not found!");
         }
     }
 
@@ -43,6 +46,14 @@ public class TargetIndicator : MonoBehaviour
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
+
+        // 💥 ป้องกัน crash
+        if (indicatorInstance == null)
+        {
+            Debug.LogWarning("⚠️ indicatorInstance is null! Ensure it was instantiated in Start().");
+            return;
+        }
+
         indicatorInstance.SetActive(target != null);
     }
 
