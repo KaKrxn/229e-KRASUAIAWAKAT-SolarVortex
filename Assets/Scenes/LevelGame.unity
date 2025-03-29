@@ -252,7 +252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Hard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Easy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1735,11 +1735,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9188848151270780053, guid: 6ceca1ad6091ddb4d91c1cdb56a3405c, type: 3}
   m_PrefabInstance: {fileID: 3146884606816871632}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &561595071 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 3198413392870767265, guid: 6ceca1ad6091ddb4d91c1cdb56a3405c, type: 3}
-  m_PrefabInstance: {fileID: 3146884606816871632}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &561595076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,9 +1773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27393ecb4651b54ca9e06f38c44ad18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 561595071}
-  _size: 10
-  _speed: 1
 --- !u!1001 &569610741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2653,7 +2645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Medium
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2686,7 +2678,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2773,45 +2765,42 @@ MonoBehaviour:
   spawnRangeY: 700
   waves:
   - Enemies: 1
-    SpawnPoint: 0
     delayStart: 1
     spawnInterval: 1
     Asteriod: 30
     AstoriodTnterval: 1
-    minX: -500
-    maxX: 500
-    minZ: -500
-    maxZ: 500
+    minX: -1500
+    maxX: 1500
+    minZ: -1500
+    maxZ: 1500
   - Enemies: 3
-    SpawnPoint: 0
     delayStart: 2
     spawnInterval: 1
     Asteriod: 50
     AstoriodTnterval: 1
-    minX: -500
-    maxX: 500
-    minZ: -500
-    maxZ: 500
-  - Enemies: 10
-    SpawnPoint: 0
+    minX: -1500
+    maxX: 1500
+    minZ: -1500
+    maxZ: 1500
+  - Enemies: 2
     delayStart: 2
     spawnInterval: 1
-    Asteriod: 100
+    Asteriod: 70
     AstoriodTnterval: 1
-    minX: -500
-    maxX: 500
-    minZ: -500
-    maxZ: 500
+    minX: -1500
+    maxX: 1500
+    minZ: -1500
+    maxZ: 1500
   - Enemies: 10
-    SpawnPoint: 0
     delayStart: 5
     spawnInterval: 1
     Asteriod: 100
     AstoriodTnterval: 1
-    minX: -500
-    maxX: 500
-    minZ: -500
-    maxZ: 500
+    minX: -1500
+    maxX: 1500
+    minZ: -1500
+    maxZ: 1500
+  difficultyLevel: 1
 --- !u!4 &1425466337
 Transform:
   m_ObjectHideFlags: 0
@@ -4075,7 +4064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1747478479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4423,7 +4412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
+  m_Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0.92941177}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4574,13 +4563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497841e18bfcc7943869212edfd89ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  trackingUI: {fileID: 0}
-  missileLauncher: {fileID: 0}
-  targetLayer:
-    m_Bits: 128
-  currentTarget: {fileID: 0}
-  isTracking: 0
 --- !u!4 &2029329926
 Transform:
   m_ObjectHideFlags: 0
@@ -4727,6 +4709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2056636541}
   - component: {fileID: 2056636540}
+  - component: {fileID: 2056636542}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -4761,6 +4744,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056636542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056636539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e48837f5e6d7f47a233a61190f030c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleScreen: {fileID: 1900695619}
+  easyButton: {fileID: 2038036091}
+  mediumButton: {fileID: 1521671073}
+  hardButton: {fileID: 420290515}
+  difficultyLevel: 1
 --- !u!1 &2080586262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4774,7 +4774,7 @@ GameObject:
   - component: {fileID: 2080586264}
   - component: {fileID: 2080586263}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5037,6 +5037,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1272548308883246019, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 49ab81b73501bd84480f2df5e6b388ca, type: 2}
     - target: {fileID: 1554055853785485645, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5045,6 +5049,14 @@ PrefabInstance:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 1747478478}
+    - target: {fileID: 6758284258432542041, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
+      propertyPath: XRange
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758284258432542041, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
+      propertyPath: YRange
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 6758284258432542041, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5057,6 +5069,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1265302934}
+    - target: {fileID: 6828291898309397038, guid: 43702df5897a87e48a1342544f1291b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -18,6 +18,9 @@ public class WaveManager : MonoBehaviour
 
     [Header("Wave Settings")]
     public List<Wave> waves;
+
+    [Header("Difficulty")]
+    public int difficultyLevel = 1;
     
     private int currentWaveIndex = 0;
     private List<int> selectedSpawnPoints = new List<int>();
@@ -25,7 +28,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(WaveSpawner());
+        //StartCoroutine(WaveSpawner());
         
     }
 
@@ -34,7 +37,7 @@ public class WaveManager : MonoBehaviour
         activeEnemies--;
     }
 
-    IEnumerator WaveSpawner()
+    public IEnumerator WaveSpawner()
     {
         
         while (currentWaveIndex < waves.Count)
@@ -56,21 +59,50 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnEnemies(Wave wave)
     {
-        activeEnemies = wave.Enemies; // กำหนดจำนวน enemy ใน wave
+        // activeEnemies = wave.Enemies; // กำหนดจำนวน enemy ใน wave
+
+        // for (int i = 0; i < wave.Enemies; i++)
+        // {
+        //     // int spawnIndex = selectedSpawnPoints[Random.Range(0, selectedSpawnPoints.Count)];
+        //     GameObject enemy = Instantiate(enemyPrefab[enemyCount], spawnPoints[0].position, Quaternion.identity);
+
+        //     var destroyScript = enemy.GetComponent<DestroyOutOfBounds>();
+        //     if (destroyScript != null)
+        //     {
+        //         destroyScript.OnDestroyEvent += EnemyDestroyed; // ติดตามการถูกทำลาย
+        //     }
+
+        //     yield return new WaitForSeconds(wave.spawnInterval);
+        // }
+            activeEnemies = wave.Enemies;
 
         for (int i = 0; i < wave.Enemies; i++)
         {
-            // int spawnIndex = selectedSpawnPoints[Random.Range(0, selectedSpawnPoints.Count)];
-            GameObject enemy = Instantiate(enemyPrefab[enemyCount], spawnPoints[0].position, Quaternion.identity);
+            GameObject enemyObj = Instantiate(enemyPrefab[enemyCount], spawnPoints[0].position, Quaternion.identity);
 
-            var destroyScript = enemy.GetComponent<DestroyOutOfBounds>();
+            // 🔥 ปรับค่าศัตรูตามระดับความยาก (ยกเว้น Boss)
+            if (!enemyObj.CompareTag("Boss"))
+            {
+                var enemy = enemyObj.GetComponent<EnemyTier2>();
+                if (enemy != null)
+                {
+                    enemy.maxHP = Mathf.RoundToInt(enemy.maxHP * difficultyLevel);
+                    enemy.damage = Mathf.RoundToInt(enemy.damage * difficultyLevel);
+                    enemy.moveSpeed *= difficultyLevel;
+                    enemy.fireDelay = Mathf.Max(0.2f, enemy.fireDelay / difficultyLevel); // ยิงเร็วขึ้นในระดับที่สูงขึ้น
+                    enemy.bulletForce *= difficultyLevel;
+                }
+            }
+
+            var destroyScript = enemyObj.GetComponent<DestroyOutOfBounds>();
             if (destroyScript != null)
             {
-                destroyScript.OnDestroyEvent += EnemyDestroyed; // ติดตามการถูกทำลาย
+                destroyScript.OnDestroyEvent += EnemyDestroyed;
             }
 
             yield return new WaitForSeconds(wave.spawnInterval);
         }
+    
     }
     
     void Spawn()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Wave
 {
     public int Enemies;
-    public int SpawnPoint;
+    //public int SpawnPoint;
     public float delayStart;
     public float spawnInterval;
     public int  Asteriod;

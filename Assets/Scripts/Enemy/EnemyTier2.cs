@@ -131,7 +131,11 @@ public class EnemyTier2 : MonoBehaviour
     void Die()
     {
         int idx = Random.Range(10, Point);
-        pyController.UpdateScore(idx);
-        Destroy(gameObject); // ทำลาย Enemy เมื่อ HP หมด
+        WaveManager waveManager = FindObjectOfType<WaveManager>();
+        // 🔥 คูณด้วยความยาก
+        int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
+        int scoreToAdd = idx * difficulty;
+        pyController.UpdateScore(scoreToAdd);
+        Destroy(gameObject);
     }
 }

@@ -34,9 +34,15 @@ public class HealthV1 : MonoBehaviour
         int idx = Random.Range(0, Point);
         if (health <= 0)
         {
-            Destroy(gameObject);
-            pyController.UpdateScore(score);
+            Die();
         }
+    }
+    void Die()
+    {
+        int scoreToAdd = Random.Range(0, Point);
+        int difficulty = FindObjectOfType<WaveManager>()?.difficultyLevel ?? 1;
+        pyController.UpdateScore(scoreToAdd * difficulty);
+        Destroy(gameObject);
     }
     float RandomTorque()
     {

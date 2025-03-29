@@ -1,39 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ModeManager : MonoBehaviour
 {
-    [Header("UI Elements")]
+    [Header("UI")]
+    public GameObject titleScreen;
     public Button easyButton;
     public Button mediumButton;
     public Button hardButton;
 
-    [Header("Enemy Elements")]
-    public float EnemyHP;
-    public float EnemyATK;
-    public float EnemySpeed;
-    public float EnemyFireDelay;
-    public float EnemyBulletSpeed;
+    [Header("Difficulty Settings")]
+    public int difficultyLevel = 1; // 1 = Easy, 2 = Medium, 3 = Hard
 
-    [Header("Asteroid Elements")]
-    public float MaxSpeedAsteroid;
+    private WaveManager waveManager;
 
-    void Awake()
+    private void Awake()
     {
-        easyButton.onClick.AddListener(() => {StartGame(1.0f);});
-        mediumButton.onClick.AddListener(() => {StartGame(1.5f);});
-        hardButton.onClick.AddListener(() => {StartGame(2.0f);});
+        easyButton.onClick.AddListener(() => StartGame(1));
+        mediumButton.onClick.AddListener(() => StartGame(2));
+        hardButton.onClick.AddListener(() => StartGame(3));
     }
-    
 
-    void StartGame(float diffculty)
+    private void Start()
     {
-        //spawnRate /= diffculty;
-        //titleScreen.SetActive(false);
-        //StartCoroutine(SpawnTargets());
+        GameObject waveObj = GameObject.Find("WaveSpawnManager");
+        if (waveObj != null)
+        {
+            waveManager = waveObj.GetComponent<WaveManager>();
+        }
+        else
+        {
+            Debug.LogError("❌ WaveManager not found in scene!");
+        }
+
+        titleScreen.SetActive(true); // เปิดหน้าจอ Title ตอนเริ่ม
+    }
+
+    void StartGame(int difficulty)
+    {
+        difficultyLevel = difficulty;
+
+        // ส่งค่าความยากไปให้ WaveManager
+        if (waveManager != null)
+        {
+            waveManager.difficultyLevel = difficulty;
+            StartCoroutine(waveManager.WaveSpawner());
+        }
+
+        titleScreen.SetActive(false);
+        Debug.Log("🎮 Start Game at difficulty: " + difficulty);
     }
 }
