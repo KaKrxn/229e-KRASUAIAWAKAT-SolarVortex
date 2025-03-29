@@ -139,8 +139,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.8436431
+  m_Center: {x: 0, y: -1.4440048e-15, z: 0.34364313}
 --- !u!114 &2406397625485873412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 1000
   speed: 330
-  damage: 10
   trackingAngle: 60
   turningRate: 5
   collisionMask:

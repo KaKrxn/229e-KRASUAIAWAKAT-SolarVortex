@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TargetIndicator : MonoBehaviour
 {
-    public GameObject indicatorPrefab; // ตั้งค่า Prefab ของ Indicator ใน Inspector
+    //public GameObject indicatorPrefab; // ตั้งค่า Prefab ของ Indicator ใน Inspector
     private GameObject indicatorInstance;
     private Transform target;
     private Camera mainCamera;
@@ -13,9 +13,9 @@ public class TargetIndicator : MonoBehaviour
         mainCamera = Camera.main;
 
         GameObject canvas = GameObject.Find("CanvasHUD");
-        if (canvas && indicatorPrefab != null)
+        if (canvas != null)
         {
-            indicatorInstance = Instantiate(indicatorPrefab, canvas.transform);
+            //indicatorInstance = Instantiate(indicatorPrefab, canvas.transform);
             indicatorInstance.SetActive(false);
         }
         else

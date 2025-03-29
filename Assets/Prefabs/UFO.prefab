@@ -153,9 +153,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 55a7154760840453cbf09a19f950e2f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1958592710512299742}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 55a7154760840453cbf09a19f950e2f8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -3924344986968800905}
   m_SourcePrefab: {fileID: 100100000, guid: 55a7154760840453cbf09a19f950e2f8, type: 3}
 --- !u!4 &8416814398413190703 stripped
 Transform:
@@ -257,7 +254,6 @@ MonoBehaviour:
   fireDelay: 1
   damage: 10
   maxHP: 50
-  healthBarPrefab: {fileID: 4737299111897477394, guid: 783a975823a2cf049a8b835085884d4d, type: 3}
   targetPosition: {x: 0, y: 0, z: 2004}
   player: {fileID: 1701838712597301228, guid: e418dcaaea892f14ab0083ff698ad0f6, type: 3}
   Point: 20
@@ -273,16 +269,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f3a263c63c3f34daf4e2e080529768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3924344986968800905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9188848151270780053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88323e996247a704fa96066d0ecb957d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicatorPrefab: {fileID: 3487882942587776233, guid: 33e31835e7c476c49b04cb9026016a61, type: 3}
