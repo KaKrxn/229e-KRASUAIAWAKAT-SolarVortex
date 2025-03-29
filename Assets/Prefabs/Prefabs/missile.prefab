@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4396704619064204275}
-  - component: {fileID: 4901707295145392665}
   - component: {fileID: 4638493424015319493}
   - component: {fileID: 1397158608921222460}
   - component: {fileID: 7883338570026377371}
@@ -41,29 +40,6 @@ Transform:
   - {fileID: 8715698959818155098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4901707295145392665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819481780962912736}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b80a1be13f9242749ba984725dd924ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifetime: 10
-  speed: 400
-  trackingAngle: 90
-  damage: 50
-  damageRadius: 5
-  turningGForce: 5
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderer: {fileID: 1397158608921222460}
-  explosionGraphic: {fileID: 6622940637758109016}
 --- !u!33 &4638493424015319493
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -179,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 1000
   speed: 330
+  damage: 10
   trackingAngle: 60
   turningRate: 5
   collisionMask:
@@ -187,9 +164,6 @@ MonoBehaviour:
   explosionEffect: {fileID: 0}
   detectionRadius: 5
   coneAngle: 60
-  lockAreaRect: {fileID: 6983690462254611892, guid: 11129c6aae1d29c4bb78b26d965fc2f7, type: 3}
-  mainCamera: {fileID: 0}
-  lockIndicator: {fileID: 3487882942587776233, guid: 33e31835e7c476c49b04cb9026016a61, type: 3}
 --- !u!114 &1963378396979026418
 MonoBehaviour:
   m_ObjectHideFlags: 0

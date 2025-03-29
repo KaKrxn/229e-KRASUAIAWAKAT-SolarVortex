@@ -23,6 +23,7 @@ public class ModeManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0f;
         GameObject waveObj = GameObject.Find("WaveSpawnManager");
         if (waveObj != null)
         {
@@ -44,10 +45,11 @@ public class ModeManager : MonoBehaviour
         if (waveManager != null)
         {
             waveManager.difficultyLevel = difficulty;
-            StartCoroutine(waveManager.WaveSpawner());
+            waveManager.StartWaves();
         }
 
         titleScreen.SetActive(false);
+        Time.timeScale = 1f;
         Debug.Log("🎮 Start Game at difficulty: " + difficulty);
     }
 }

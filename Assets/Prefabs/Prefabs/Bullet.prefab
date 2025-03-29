@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2669934981140404951}
-  - component: {fileID: -7281642871779554129}
   - component: {fileID: 2669934981140404944}
   - component: {fileID: 5030476203247968557}
   - component: {fileID: 6363495856932316362}
@@ -37,25 +36,6 @@ Transform:
   - {fileID: 3254032929441118894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7281642871779554129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2669934981140404945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67c8fba0f142b9840b9b423e66ef56eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 15
-  lifetime: 5
-  speed: 1000
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  width: 2.5
 --- !u!120 &2669934981140404944
 LineRenderer:
   serializedVersion: 2
@@ -221,7 +201,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 8.773085, y: 9.552312, z: 51.769043}
   m_Center: {x: 0.2687788, y: 0.05148554, z: -0.38934326}

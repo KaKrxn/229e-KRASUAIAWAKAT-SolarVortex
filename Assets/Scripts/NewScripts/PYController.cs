@@ -273,6 +273,13 @@ public class PYController : MonoBehaviour
 
     }
 
+    public void RestoreFullHP()
+    {
+        currentHP = maxHP;
+        HealthBar.value = currentHP;
+    }
+
+
     void SwitchCamera()
     {
         // if (SwitchCam.wasPressedThisFrame) // ใช้ wasPressedThisFrame เพื่อให้ทำงานครั้งเดียวต่อการกด
