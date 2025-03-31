@@ -1,22 +1,27 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class EnemyTier1 : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float trackSpeed = 3f;
     public float dashSpeed = 10f;
     public float dashCooldown = 2f;
 
+    [Header("Combat Settings")]
     public int maxHP = 50;
     private int currentHP;
 
-    public int Point;
-
-    private Vector3 startPoint;
-    private float originalZ;
+    public int Point = 30; // คะแนนพื้นฐาน
     private bool isDashing = false;
     private bool isInCooldown = false;
     private bool hasHitPlayer = false;
+
+    [Header("References")]
+    [SerializeField] private GameObject explosionEffect;
+
+    private Vector3 startPoint;
+    private float originalZ;
 
     private Transform player;
     private PYController pyController;
@@ -25,8 +30,11 @@ public class EnemyTier1 : MonoBehaviour
     {
         currentHP = maxHP;
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        pyController = GameObject.Find("Player").GetComponent<PYController>();
+        player = GameObject.FindWithTag("Player")?.transform;
+        pyController = GameObject.FindWithTag("Player")?.GetComponent<PYController>();
+
+        if (pyController == null)
+            Debug.LogWarning("⚠ PYController not found! Please check the Player object.");
 
         startPoint = transform.position;
         originalZ = transform.position.z;
@@ -38,18 +46,17 @@ public class EnemyTier1 : MonoBehaviour
     {
         while (true)
         {
-            // ขยับ X/Y ไปหาผู้เล่นจนกว่าจะตรงกัน (หรือเกือบ)
-            while (!isDashing && !isInCooldown && Vector2.Distance(transform.position, new Vector2(player.position.x, player.position.y)) > 0.1f)
+            while (!isDashing && !isInCooldown && player != null &&
+                   Vector2.Distance(transform.position, new Vector2(player.position.x, player.position.y)) > 0.1f)
             {
                 Vector3 targetPos = new Vector3(player.position.x, player.position.y, originalZ);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, trackSpeed * Time.deltaTime);
                 yield return null;
             }
 
-            // รอสักแป๊บก่อนพุ่ง
             yield return new WaitForSeconds(0.5f);
 
-            if (!isInCooldown)
+            if (!isInCooldown && player != null)
             {
                 isDashing = true;
                 hasHitPlayer = false;
@@ -70,15 +77,10 @@ public class EnemyTier1 : MonoBehaviour
             yield return null;
         }
 
-        // ถ้าไม่โดน
         if (!hasHitPlayer)
         {
-            Debug.Log("❌ Missed. Going back...");
             isInCooldown = true;
-
-            // กลับจุดเดิม
             transform.position = new Vector3(startPoint.x, startPoint.y, originalZ);
-
             yield return new WaitForSeconds(dashCooldown);
             isInCooldown = false;
         }
@@ -90,16 +92,17 @@ public class EnemyTier1 : MonoBehaviour
     {
         if (isDashing && other.CompareTag("Player"))
         {
-            Debug.Log("💥 Hit Player!");
             hasHitPlayer = true;
-            Destroy(gameObject);
-            // TODO: ลด HP ผู้เล่นถ้าต้องการ
+            Debug.Log("💥 Hit Player!");
+            Destroy(gameObject); // ใส่ระบบให้ Player เสีย HP ได้ตรงนี้
         }
     }
 
     public void TakeDamage(int amount)
     {
         currentHP -= amount;
+        Debug.Log($"EnemyTier1 took {amount} damage. Current HP = {currentHP}");
+
         if (currentHP <= 0)
         {
             Die();
@@ -108,14 +111,21 @@ public class EnemyTier1 : MonoBehaviour
 
     void Die()
     {
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
         int idx = Random.Range(10, Point);
         WaveManager waveManager = FindObjectOfType<WaveManager>();
         int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
         int scoreToAdd = idx * difficulty;
+
         if (pyController != null)
         {
             pyController.UpdateScore(scoreToAdd);
-        };
+        }
+
         Destroy(gameObject);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ModeManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ModeManager : MonoBehaviour
     public Button easyButton;
     public Button mediumButton;
     public Button hardButton;
+
+    public Button MenuButton;
+    public Button ResetButton;
 
     [SerializeField] GameObject BGMode;
     [SerializeField] GameObject Player;
@@ -23,6 +27,8 @@ public class ModeManager : MonoBehaviour
         easyButton.onClick.AddListener(() => StartGame(1));
         mediumButton.onClick.AddListener(() => StartGame(2));
         hardButton.onClick.AddListener(() => StartGame(3));
+        MenuButton.onClick.AddListener(() => BackToMainMenu());
+        ResetButton.onClick.AddListener(() => ResetGame());
     }
 
     private void Start()
@@ -62,5 +68,16 @@ public class ModeManager : MonoBehaviour
         titleScreen.SetActive(false);
         //Time.timeScale = 1f;
         Debug.Log("🎮 Start Game at difficulty: " + difficulty);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+        Time.timeScale = 1f;
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("LevelGame");
+        Time.timeScale = 1f;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
 public class PYController : MonoBehaviour
 {
@@ -35,8 +35,10 @@ public class PYController : MonoBehaviour
     private int score;
     public Slider HealthBar;
 
+    public ParticleSystem explosionParticle;
     [Header("Camera")]
     public GameObject HUD;
+    public GameObject GameOver;
     public GameObject cameraRef;
     private int countPress = 0;
     private bool isCameraOn = true;
@@ -57,6 +59,7 @@ public class PYController : MonoBehaviour
 
         isCanShoot = false;
         isHUDOn = false;
+        GameOver.SetActive(false);
 
         RB = GetComponent<Rigidbody>();
         //cameraRef = GameObject.Find("CameraPlayer").GetComponent<CameraFollowerV2>();
@@ -241,9 +244,14 @@ public class PYController : MonoBehaviour
         if (currentHP <= 0)
         {
             
+            //explosionParticle.Play();
             Debug.Log("Player Died!");
-            Destroy(gameObject,2f);
-            SceneManager.LoadScene("Main Menu");
+            GameOver.SetActive(true);
+            Time.timeScale = 0f;
+
+             // ✅ เรียก coroutine เพื่อโหลดฉากโดยไม่ติด pause
+              //StartCoroutine(HandleDeathAndLoadScene());
+            
         }
     }
 
@@ -253,15 +261,15 @@ public class PYController : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentRotation.x, 90f, currentRotation.z);
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        RB.linearVelocity = Vector3.zero;
-        Vector3 currentRotation = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0f, currentRotation.y, 0f);
-        Debug.Log("Hit Enemy, reset Force and Rotation.");
-        Destroy(this.gameObject);
-        Instantiate(Player, transform.position, Player.transform.rotation);
-    }
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     RB.linearVelocity = Vector3.zero;
+    //     Vector3 currentRotation = transform.rotation.eulerAngles;
+    //     transform.rotation = Quaternion.Euler(0f, currentRotation.y, 0f);
+    //     Debug.Log("Hit Enemy, reset Force and Rotation.");
+    //     // Destroy(this.gameObject);
+    //     // Instantiate(Player, transform.position, Player.transform.rotation);
+    // }
     public void UpdateScore(int score)
     {
         this.score += score;
@@ -274,7 +282,15 @@ public class PYController : MonoBehaviour
         currentHP = maxHP;
         HealthBar.value = currentHP;
     }
+    // IEnumerator HandleDeathAndLoadScene()
+    // {
+    //     // ✅ รอเวลาแบบไม่โดน Time.timeScale (ไม่งั้นจะไม่รอจริง)
+    //     yield return new WaitForSecondsRealtime(2f);
 
+    //     // ✅ รีเซ็ต Time.timeScale ก่อนโหลดฉากใหม่
+    //     Time.timeScale = 1f;
+    //     SceneManager.LoadScene("Main Menu");
+    // }
 
     void SwitchCamera()
     {

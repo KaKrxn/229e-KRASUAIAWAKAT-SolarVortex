@@ -42,16 +42,23 @@ public class BossEnemy : MonoBehaviour
     [SerializeField] private float missileDodgeChance = 0.3f;
     [SerializeField] private float dodgeDetectionRadius = 10f;
     [SerializeField] private LayerMask missileLayer;
-
+    public int Point;
+    public ParticleSystem explosionParticle;
+    public AudioClip crashSfx;
+    private AudioSource playerAudio;
     private Transform player;
     private Vector3 targetPosition;
+    private PYController pyController;
     private bool isMoving = false;
     private bool isDashing = false;
 
     private void Start()
     {
         currentHP = maxHP;
+        explosionParticle.Stop();
+        pyController = GameObject.Find("Player").GetComponent<PYController>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        playerAudio = GetComponent<AudioSource>();
         StartCoroutine(MoveLoop());
         StartCoroutine(Phase1_BulletBurst());
         StartCoroutine(Phase2_LaserAttack());
@@ -249,9 +256,16 @@ public class BossEnemy : MonoBehaviour
     }
 
     private void Die()
-    {
-        Debug.Log("💀 Boss defeated!");
-        Destroy(gameObject);
+    {   
+        explosionParticle.Play();
+        if (pyController != null)
+        {
+            int idx = Random.Range(10, Point);
+            WaveManager waveManager = FindObjectOfType<WaveManager>();
+            int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
+            int scoreToAdd = idx * difficulty;
+            pyController.UpdateScore(scoreToAdd);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -21,15 +21,19 @@ public class EnemyTier3 : MonoBehaviour
     public int maxHP = 100;
     private int currentHP;
     public int contactDamage = 10;
-
+    public ParticleSystem explosionParticle;
+    public AudioClip crashSfx;
     private Transform player;
+    private AudioSource playerAudio;
     public int Point;
     private PYController pyController;
 
     private void Start()
     {
+        explosionParticle.Stop();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         pyController = GameObject.Find("Player").GetComponent<PYController>();
+        playerAudio = GetComponent<AudioSource>();
         currentHP = maxHP;
         StartCoroutine(MoveRandomly());
         StartCoroutine(FireLaserRoutine());
@@ -91,6 +95,8 @@ public class EnemyTier3 : MonoBehaviour
         currentHP -= amount;
         if (currentHP <= 0)
         {
+            playerAudio.PlayOneShot(crashSfx);
+            explosionParticle.Play();
             Die();
         }
     }
@@ -101,13 +107,13 @@ public class EnemyTier3 : MonoBehaviour
         WaveManager waveManager = FindObjectOfType<WaveManager>();
         int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
         int scoreToAdd = idx * difficulty;
-
+        
         if (pyController != null)
         {
             pyController.UpdateScore(scoreToAdd);
         }
 
-    Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

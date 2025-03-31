@@ -17,7 +17,7 @@ public class MissileTracking : MonoBehaviour
     private Rigidbody rb;
     private bool exploded = false;
     private float timer;
-
+    public ParticleSystem explosionParticle;
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
@@ -25,6 +25,7 @@ public class MissileTracking : MonoBehaviour
 
     private void Awake()
     {
+        explosionParticle.Stop();
         rb = GetComponent<Rigidbody>();
         timer = lifetime;
     }
@@ -92,7 +93,7 @@ public class MissileTracking : MonoBehaviour
             Vector3 spawnPos = hitPosition ?? transform.position;
             Instantiate(explosionEffect, spawnPos, Quaternion.identity);
         }
-
+        explosionParticle.Play();
         Destroy(gameObject);
     }
 
