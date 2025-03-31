@@ -1,99 +1,105 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyTier1 : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public float moveForce = 5f;             // แรงเคลื่อนที่
-    public float moveDistance = 5f;          // ระยะทางที่เคลื่อนที่ไปกลับ
+    public float trackSpeed = 3f;
+    public float dashSpeed = 10f;
+    public float dashCooldown = 2f;
 
-    [Header("Attack Settings")]
-    public float attackCooldown = 2f;        // คูลดาวน์ระหว่างการยิง
-    public float bulletForce = 5000f;         // แรงกระสุน
-    public int damage = 10;                  // ดาเมจที่ทำได้
-
-    [Header("Health Settings")]
-    public int maxHP = 100;                  // HP สูงสุด
+    public int maxHP = 50;
     private int currentHP;
 
-    [Header("References")]
-    public GameObject bulletPrefab;          // กระสุน
-    public Transform shootPoint;             // จุดยิงกระสุน
-    public Transform player;                 // เป้าหมายผู้เล่น
+    public int Point;
 
-    private Rigidbody rb;
-    private Vector3 startPos;
-    private bool movingRight = true;
-    private float attackTimer = 0f;
+    private Vector3 startPoint;
+    private float originalZ;
+    private bool isDashing = false;
+    private bool isInCooldown = false;
+    private bool hasHitPlayer = false;
+
+    private Transform player;
+    private PYController pyController;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        startPos = transform.position;
         currentHP = maxHP;
+
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        pyController = GameObject.Find("Player").GetComponent<PYController>();
+
+        startPoint = transform.position;
+        originalZ = transform.position.z;
+
+        StartCoroutine(TrackAndDashLoop());
     }
 
-    void FixedUpdate() // ใช้ FixedUpdate เพราะเกี่ยวกับฟิสิกส์
+    IEnumerator TrackAndDashLoop()
     {
-        Move();
-    }
-
-    void Update()
-    {
-        Attack();
-    }
-
-    // ======= เคลื่อนที่ด้วย AddForce =========
-    void Move()
-    {
-        float direction = movingRight ? 1f : -1f;
-        rb.AddForce(Vector3.right * direction * moveForce);
-
-        // เช็คขอบเขตการเคลื่อนที่
-        if (movingRight && transform.position.x >= startPos.x + moveDistance)
+        while (true)
         {
-            movingRight = false;
-        }
-        else if (!movingRight && transform.position.x <= startPos.x - moveDistance)
-        {
-            movingRight = true;
-        }
-    }
-
-    // ======= ยิงกระสุนด้วย AddForce ==========
-    void Attack()
-    {
-        attackTimer -= Time.deltaTime;
-
-        if (attackTimer <= 0f && player != null)
-        {
-            // คำนวณทิศทาง
-            Vector3 direction = (player.position - shootPoint.position).normalized;
-
-            // สร้างกระสุน
-            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-            if (bulletRb != null)
+            // ขยับ X/Y ไปหาผู้เล่นจนกว่าจะตรงกัน (หรือเกือบ)
+            while (!isDashing && !isInCooldown && Vector2.Distance(transform.position, new Vector2(player.position.x, player.position.y)) > 0.1f)
             {
-                bulletRb.AddForce(direction * bulletForce);
+                Vector3 targetPos = new Vector3(player.position.x, player.position.y, originalZ);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, trackSpeed * Time.deltaTime);
+                yield return null;
             }
 
-            // กำหนด Damage
-            EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
-            if (bulletScript != null)
+            // รอสักแป๊บก่อนพุ่ง
+            yield return new WaitForSeconds(0.5f);
+
+            if (!isInCooldown)
             {
-                bulletScript.damage = damage;
+                isDashing = true;
+                hasHitPlayer = false;
+                yield return StartCoroutine(DashToPlayer());
             }
 
-            // รีเซ็ตคูลดาวน์
-            attackTimer = attackCooldown;
+            yield return null;
         }
     }
 
-    // ======= รับดาเมจ =======
-    public void TakeDamage(int dmg)
+    IEnumerator DashToPlayer()
     {
-        currentHP -= dmg;
+        Vector3 dashTarget = new Vector3(transform.position.x, transform.position.y, player.position.z);
+
+        while (!hasHitPlayer && Vector3.Distance(transform.position, dashTarget) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, dashTarget, dashSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // ถ้าไม่โดน
+        if (!hasHitPlayer)
+        {
+            Debug.Log("❌ Missed. Going back...");
+            isInCooldown = true;
+
+            // กลับจุดเดิม
+            transform.position = new Vector3(startPoint.x, startPoint.y, originalZ);
+
+            yield return new WaitForSeconds(dashCooldown);
+            isInCooldown = false;
+        }
+
+        isDashing = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isDashing && other.CompareTag("Player"))
+        {
+            Debug.Log("💥 Hit Player!");
+            hasHitPlayer = true;
+            Destroy(gameObject);
+            // TODO: ลด HP ผู้เล่นถ้าต้องการ
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHP -= amount;
         if (currentHP <= 0)
         {
             Die();
@@ -102,6 +108,14 @@ public class EnemyTier1 : MonoBehaviour
 
     void Die()
     {
+        int idx = Random.Range(10, Point);
+        WaveManager waveManager = FindObjectOfType<WaveManager>();
+        int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
+        int scoreToAdd = idx * difficulty;
+        if (pyController != null)
+        {
+            pyController.UpdateScore(scoreToAdd);
+        };
         Destroy(gameObject);
     }
 }

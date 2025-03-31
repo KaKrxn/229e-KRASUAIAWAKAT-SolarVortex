@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PYController : MonoBehaviour
 {
@@ -182,13 +183,7 @@ public class PYController : MonoBehaviour
 
     private void ShootMissile(InputAction.CallbackContext context)
     {
-        // if (canShoot)
-        // {
-        //     GameObject missile = Instantiate(missilePrefab, firePoint.position, firePoint.rotation);
-        //     Missilex missileScript = missile.GetComponent<Missilex>();
-        //     missileScript.SetTarget(lockedTarget);
-        //     StartCoroutine(MissileCooldown());
-        // }
+        
         if (!canShoot) return;
 
     // 🔍 หาศัตรูที่ใกล้ที่สุด
@@ -248,6 +243,7 @@ public class PYController : MonoBehaviour
             
             Debug.Log("Player Died!");
             Destroy(gameObject,2f);
+            SceneManager.LoadScene("Main Menu");
         }
     }
 

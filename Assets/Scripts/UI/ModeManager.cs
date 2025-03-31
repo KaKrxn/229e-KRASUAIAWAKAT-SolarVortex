@@ -9,6 +9,10 @@ public class ModeManager : MonoBehaviour
     public Button mediumButton;
     public Button hardButton;
 
+    [SerializeField] GameObject BGMode;
+    [SerializeField] GameObject Player;
+    [SerializeField] GameObject HUDGame;
+
     [Header("Difficulty Settings")]
     public int difficultyLevel = 1; // 1 = Easy, 2 = Medium, 3 = Hard
 
@@ -23,7 +27,11 @@ public class ModeManager : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 0f;
+        titleScreen.SetActive(true);
+        HUDGame.SetActive(false);
+        Player.SetActive(false);
+        BGMode.SetActive(true);
+        //Time.timeScale = 0f;
         GameObject waveObj = GameObject.Find("WaveSpawnManager");
         if (waveObj != null)
         {
@@ -46,10 +54,13 @@ public class ModeManager : MonoBehaviour
         {
             waveManager.difficultyLevel = difficulty;
             waveManager.StartWaves();
+            BGMode.SetActive(false);
+            Player.SetActive(true);
+            HUDGame.SetActive(true);
         }
 
         titleScreen.SetActive(false);
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         Debug.Log("🎮 Start Game at difficulty: " + difficulty);
     }
 }

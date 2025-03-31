@@ -12,6 +12,7 @@ public class EnemyTracker : MonoBehaviour
     public float trackingRange = 100f;
     public float lockOnTime = 1.5f;
     
+    [SerializeField] GameObject hitVFX;
     private Transform lockedTarget;
     private float lockOnProgress = 0f;
     private List<Transform> enemies = new List<Transform>();
