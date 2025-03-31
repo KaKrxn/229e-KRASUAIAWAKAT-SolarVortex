@@ -40,6 +40,8 @@ public class PYController : MonoBehaviour
     public GameObject HUD;
     public GameObject GameOver;
     public GameObject cameraRef;
+    public AudioClip crashSfx;
+    private AudioSource playerAudio;
     private int countPress = 0;
     private bool isCameraOn = true;
     private bool isHUDOn = false;
@@ -56,6 +58,7 @@ public class PYController : MonoBehaviour
         shootAction = InputSystem.actions.FindAction("Shoot");
         lockTargetAction = InputSystem.actions.FindAction("LockTarget");
         SwitchCam = InputSystem.actions.FindAction("SwitchCam");
+        playerAudio = GetComponent<AudioSource>();
 
         isCanShoot = false;
         isHUDOn = false;
@@ -274,6 +277,7 @@ public class PYController : MonoBehaviour
     {
         this.score += score;
         scoreText.text = this.score.ToString();
+        playerAudio.PlayOneShot(crashSfx);
 
     }
 
@@ -281,6 +285,12 @@ public class PYController : MonoBehaviour
     {
         currentHP = maxHP;
         HealthBar.value = currentHP;
+    }
+
+    public void PlaySound()
+    {
+        playerAudio.PlayOneShot(crashSfx);
+
     }
     // IEnumerator HandleDeathAndLoadScene()
     // {

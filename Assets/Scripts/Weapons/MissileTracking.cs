@@ -17,6 +17,7 @@ public class MissileTracking : MonoBehaviour
     private Rigidbody rb;
     private bool exploded = false;
     private float timer;
+    private PYController pYController;
     public ParticleSystem explosionParticle;
     public void SetTarget(Transform newTarget)
     {
@@ -25,6 +26,7 @@ public class MissileTracking : MonoBehaviour
 
     private void Awake()
     {
+        pYController = GameObject.Find("Player").GetComponent<PYController>();
         explosionParticle.Stop();
         rb = GetComponent<Rigidbody>();
         timer = lifetime;
@@ -94,6 +96,14 @@ public class MissileTracking : MonoBehaviour
             Instantiate(explosionEffect, spawnPos, Quaternion.identity);
         }
         explosionParticle.Play();
+        pYController.PlaySound();
+        StartCoroutine(DelayedDestroy(0.2f));
+    }
+
+
+    IEnumerator DelayedDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 

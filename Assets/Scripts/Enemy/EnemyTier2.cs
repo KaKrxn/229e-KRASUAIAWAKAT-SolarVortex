@@ -106,6 +106,12 @@ public class EnemyTier2 : MonoBehaviour
         int scoreToAdd = idx * difficulty;
         pyController.UpdateScore(scoreToAdd);
         
+        pyController.PlaySound();
+        StartCoroutine(DelayedDestroy(2f));
+    }
+    IEnumerator DelayedDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 }

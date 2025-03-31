@@ -265,7 +265,14 @@ public class BossEnemy : MonoBehaviour
             int difficulty = waveManager != null ? waveManager.difficultyLevel : 1;
             int scoreToAdd = idx * difficulty;
             pyController.UpdateScore(scoreToAdd);
+        
         }
+        StartCoroutine(DelayedDestroy(2f));
+    }
+    IEnumerator DelayedDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

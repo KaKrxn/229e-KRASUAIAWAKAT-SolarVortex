@@ -266,8 +266,7 @@ MonoBehaviour:
   dashCooldown: 2
   maxHP: 100
   Point: 0
-  explosionParticle: {fileID: 6018185368434812951}
-  crashSfx: {fileID: 0}
+  explosionEffect: {fileID: 0}
 --- !u!54 &3198413392870767265
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -333,13 +332,13 @@ MonoBehaviour:
   maxPosition: {x: 500, y: 500}
   bulletPrefab: {fileID: 4242261106640131065, guid: b3129409862a4184b88ae3c1bcc9da9a, type: 3}
   firePoint: {fileID: 237146002296362085}
-  bulletForce: 30000
+  bulletForce: 38000
   fireDelay: 1
   damage: 10
   maxHP: 50
   targetPosition: {x: 0, y: 0, z: 2004}
   player: {fileID: 1701838712597301228, guid: e418dcaaea892f14ab0083ff698ad0f6, type: 3}
-  Point: 20
+  Point: 30
   explosionParticle: {fileID: 6018185368434812951}
   crashSfx: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
 --- !u!114 &-1958592710512299742

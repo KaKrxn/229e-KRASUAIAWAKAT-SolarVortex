@@ -126,6 +126,11 @@ public class EnemyTier1 : MonoBehaviour
             pyController.UpdateScore(scoreToAdd);
         }
 
+        StartCoroutine(DelayedDestroy(2f));
+    }
+    IEnumerator DelayedDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 }

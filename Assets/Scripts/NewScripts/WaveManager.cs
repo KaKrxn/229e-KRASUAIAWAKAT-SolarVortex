@@ -22,7 +22,7 @@ public class WaveManager : MonoBehaviour
     [Header("Difficulty")]
     public int difficultyLevel = 1; // Easy: 1, Medium: 2, Hard: 3
     public float loopDifficultyMultiplier = 0.2f;
-    private int loopCount = 0;
+    private int loopCount = 1;
 
     private int currentWaveIndex = 0;
     private int activeEnemies = 0;
@@ -152,6 +152,6 @@ public class WaveManager : MonoBehaviour
 
     void UpdateLoopUI()
     {
-        loopText.text = "Loop: " + (loopCount + 1);
+        loopText.text = "" + (loopCount + 1);
     }
 } 

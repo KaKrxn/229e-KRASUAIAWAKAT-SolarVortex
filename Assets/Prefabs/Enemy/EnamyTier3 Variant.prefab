@@ -430,7 +430,7 @@ MonoBehaviour:
   minY: -800
   maxY: 800
   moveSpeed: 280
-  waitTime: 1.5
+  waitTime: 1
   laserPrefab: {fileID: 5480323153682487529, guid: f58bf405753198447aa4ed943b7e96e8, type: 3}
   laserFirePoints:
   - {fileID: 738942266789788879}

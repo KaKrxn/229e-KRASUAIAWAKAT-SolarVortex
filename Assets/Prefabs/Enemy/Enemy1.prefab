@@ -50,12 +50,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackSpeed: 250
-  dashSpeed: 300
-  dashCooldown: 5
+  dashSpeed: 430
+  dashCooldown: 7
   maxHP: 40
-  Point: 0
-  explosionParticle: {fileID: 1123262334372893142}
-  crashSfx: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
+  Point: 20
+  explosionEffect: {fileID: 0}
 --- !u!65 &4829131384076668807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -590,11 +589,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
---- !u!198 &1123262334372893142 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5444105318733727396, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
-  m_PrefabInstance: {fileID: 4907790913099470706}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1183181538238178461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6084495597062304751, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
