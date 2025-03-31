@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Game.SceneManagement
 {
-    public class CreditLoader : MonoBehaviour
+    public class BackMainLoader : MonoBehaviour
     {
         public void LoadGameScene()
         {
-            SceneManager.LoadScene("Credits");
+            SceneManager.LoadScene("Main Menu");
         }
     }
 }
