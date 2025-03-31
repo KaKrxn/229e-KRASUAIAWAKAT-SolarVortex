@@ -97,7 +97,7 @@ public class MissileTracking : MonoBehaviour
         }
         explosionParticle.Play();
         pYController.PlaySound();
-        StartCoroutine(DelayedDestroy(0.2f));
+        StartCoroutine(DelayedDestroy(0.1f));
     }
 
 
