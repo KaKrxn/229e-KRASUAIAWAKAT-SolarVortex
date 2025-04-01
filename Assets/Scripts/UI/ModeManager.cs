@@ -37,7 +37,7 @@ public class ModeManager : MonoBehaviour
         HUDGame.SetActive(false);
         Player.SetActive(false);
         BGMode.SetActive(true);
-        //Time.timeScale = 0f;
+        
         GameObject waveObj = GameObject.Find("WaveSpawnManager");
         if (waveObj != null)
         {
@@ -48,14 +48,14 @@ public class ModeManager : MonoBehaviour
             Debug.LogError("❌ WaveManager not found in scene!");
         }
 
-        titleScreen.SetActive(true); // เปิดหน้าจอ Title ตอนเริ่ม
+        titleScreen.SetActive(true); 
     }
 
     void StartGame(int difficulty)
     {
         difficultyLevel = difficulty;
 
-        // ส่งค่าความยากไปให้ WaveManager
+        
         if (waveManager != null)
         {
             waveManager.difficultyLevel = difficulty;
@@ -66,7 +66,7 @@ public class ModeManager : MonoBehaviour
         }
 
         titleScreen.SetActive(false);
-        //Time.timeScale = 1f;
+        
         Debug.Log("🎮 Start Game at difficulty: " + difficulty);
     }
 

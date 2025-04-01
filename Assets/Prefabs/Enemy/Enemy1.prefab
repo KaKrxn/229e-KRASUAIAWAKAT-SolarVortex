@@ -52,7 +52,7 @@ MonoBehaviour:
   trackSpeed: 250
   dashSpeed: 430
   dashCooldown: 7
-  maxHP: 40
+  maxHP: 50
   Point: 20
   explosionEffect: {fileID: 0}
 --- !u!65 &4829131384076668807

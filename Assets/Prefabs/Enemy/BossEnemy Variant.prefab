@@ -311,20 +311,20 @@ MonoBehaviour:
   maxY: 900
   moveSpeed: 220
   waitAtPointTime: 0.5
-  maxHP: 300
+  maxHP: 700
   contactDamage: 20
   firePoints:
   - {fileID: 3337914162615156353}
   - {fileID: 2947265118405989567}
   - {fileID: 7018409544018951394}
   - {fileID: 4496024821477268949}
-  bulletPrefab: {fileID: 4242261106640131065, guid: b3129409862a4184b88ae3c1bcc9da9a, type: 3}
+  bulletPrefab: {fileID: 4242261106640131065, guid: bed2a41f283b3ad4caf7cedda557959e, type: 3}
   fireRate: 0.3
-  burstCooldown: 4
+  burstCooldown: 3
   bulletsPerBurst: 13
-  bulletSpeed: 380
-  bulletLifetime: 200
-  bulletDamage: 8
+  bulletSpeed: 420
+  bulletLifetime: 100
+  bulletDamage: 4
   laserPrefab: {fileID: 5480323153682487529, guid: f58bf405753198447aa4ed943b7e96e8, type: 3}
   laserFirePoints:
   - {fileID: 5501833699817119946}

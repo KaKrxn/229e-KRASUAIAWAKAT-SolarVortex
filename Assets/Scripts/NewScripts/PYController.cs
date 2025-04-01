@@ -84,12 +84,12 @@ public class PYController : MonoBehaviour
 
     void Update()
     {
-        if (SwitchCam.triggered) // ตรวจจับการกดปุ่ม
+        if (SwitchCam.triggered) 
         {
-            isCameraOn = !isCameraOn; // สลับค่า true/false
+            isCameraOn = !isCameraOn; 
             isHUDOn = !isHUDOn;
             isCanShoot = !isCanShoot;
-            cameraRef.SetActive(isCameraOn); // เปิด-ปิดกล้อง
+            cameraRef.SetActive(isCameraOn); 
             HUD.SetActive(isHUDOn);
             Debug.Log(isCameraOn ? "Open Camera" : "Close Camera");
         }
@@ -106,15 +106,14 @@ public class PYController : MonoBehaviour
 
         
         
-        RollShip();  // เพิ่มการหมุนเครื่องบิน
-        PitchShip(); // เพิ่มการเอียงเครื่องบิน
-        FixYRotation(); // แก้ไขการหมุนในแกน Y
-
-        ClampPosition(); // ตรวจสอบตำแหน่ง
+        RollShip();  
+        PitchShip(); 
+        FixYRotation(); 
+        ClampPosition(); 
 
     }
 
-    // ฟังก์ชันที่ใช้ควบคุมการหมุนเครื่องบิน (Roll)
+    
     void RollShip()
     {
         float targetXRotation = horizontalInput * 30f;
@@ -125,15 +124,15 @@ public class PYController : MonoBehaviour
         transform.rotation = Quaternion.Euler(newX, currentRotation.y, currentRotation.z);
     }
 
-    // ฟังก์ชันที่ใช้ควบคุมการเอียงเครื่องบิน (Pitch)
+   
     void PitchShip()
     {
-        // ควบคุมการเอียงเครื่องบินขึ้นลง
-        float targetZRotation = verticalInput * 25f;  // 25f คือค่าความเร็วในการเอียง (ปรับตามที่ต้องการ)
+        
+        float targetZRotation = verticalInput * 25f;  
         Vector3 currentRotation = transform.rotation.eulerAngles;
         float currentZ = currentRotation.z;
-        if (currentZ > 180f) currentZ -= 360f;  // ทำให้ค่าหมุนระหว่าง -180 ถึง 180 องศา
-        float newZ = Mathf.Lerp(currentZ, targetZRotation, Time.deltaTime * 5f);  // ใช้ Lerp เพื่อทำให้การเอียงเนียนขึ้น
+        if (currentZ > 180f) currentZ -= 360f;  
+        float newZ = Mathf.Lerp(currentZ, targetZRotation, Time.deltaTime * 5f);  
         transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, newZ);
     }
 
@@ -192,7 +191,7 @@ public class PYController : MonoBehaviour
         
         if (!canShoot) return;
 
-    // 🔍 หาศัตรูที่ใกล้ที่สุด
+    
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
@@ -207,7 +206,7 @@ public class PYController : MonoBehaviour
             }
         }
 
-        // ✅ ถ้าเจอศัตรู → ล็อกเป้า
+        
         if (closestEnemy != null)
         {
             lockedTarget = closestEnemy;
@@ -216,10 +215,10 @@ public class PYController : MonoBehaviour
         else
         {
             Debug.LogWarning("❌ No enemy found to lock on.");
-            return; // ไม่ยิงถ้าไม่มีเป้า
+            return; 
         }
 
-        // 🚀 ยิงมิสไซล์ตามปกติ
+        
         
         
         GameObject missile = Instantiate(missilePrefab, firePoint.position, firePoint.rotation);
@@ -252,7 +251,7 @@ public class PYController : MonoBehaviour
             GameOver.SetActive(true);
             Time.timeScale = 0f;
 
-             // ✅ เรียก coroutine เพื่อโหลดฉากโดยไม่ติด pause
+            
               //StartCoroutine(HandleDeathAndLoadScene());
             
         }

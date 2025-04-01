@@ -57,7 +57,7 @@ public class MissileTracking : MonoBehaviour
             {
                 int randomDamage = Random.Range(minDamage, maxDamage + 1);
 
-                // ตรวจสอบทุกประเภทของ Enemy
+                
                 if (col.TryGetComponent(out EnemyTier1 e1))
                     e1.TakeDamage(randomDamage);
                 else if (col.TryGetComponent(out EnemyTier2 e2))
@@ -89,7 +89,7 @@ public class MissileTracking : MonoBehaviour
         if (exploded) return;
         exploded = true;
 
-        // ✅ เพิ่ม VFX ตอนโดน
+        
         if (explosionEffect != null)
         {
             Vector3 spawnPos = hitPosition ?? transform.position;

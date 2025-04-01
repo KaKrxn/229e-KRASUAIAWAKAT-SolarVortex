@@ -447,7 +447,7 @@ MonoBehaviour:
   laserDuration: 300
   laserCooldown: 4
   laserDamage: 25
-  maxHP: 100
+  maxHP: 220
   contactDamage: 10
   explosionParticle: {fileID: 6504770933717684014}
   crashSfx: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}

@@ -145,7 +145,7 @@ public class BossEnemy : MonoBehaviour
                 foreach (Transform laserPoint in laserFirePoints)
                 {
                     GameObject laser = Instantiate(laserPrefab, laserPoint.position, laserPoint.rotation);
-                    LaserBehavior laserScript = laser.GetComponent<LaserBehavior>();
+                    LaserBoss laserScript = laser.GetComponent<LaserBoss>();
                     if (laserScript != null)
                     {
                         laserScript.SetDamage(laserDamage);
@@ -294,53 +294,5 @@ public class BossEnemy : MonoBehaviour
     }
 }
 
-public class BulletBehavior : MonoBehaviour
-{
-    private int damage;
+// 
 
-    public void SetDamage(int dmg)
-    {
-        damage = dmg;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PYController player = other.GetComponent<PYController>();
-            if (player != null)
-            {
-                player.TakeDamage(damage);
-            }
-            Destroy(gameObject);
-        }
-    }
-}
-
-public class LaserBehavior : MonoBehaviour
-{
-    private int damage;
-    private float duration;
-
-    public void SetDamage(int dmg)
-    {
-        damage = dmg;
-    }
-
-    public void SetDuration(float time)
-    {
-        duration = time;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PYController player = other.GetComponent<PYController>();
-            if (player != null)
-            {
-                player.TakeDamage(damage);
-            }
-        }
-    }
-}

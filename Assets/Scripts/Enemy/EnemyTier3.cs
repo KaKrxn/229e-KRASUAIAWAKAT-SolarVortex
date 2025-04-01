@@ -76,7 +76,7 @@ public class EnemyTier3 : MonoBehaviour
             foreach (Transform point in laserFirePoints)
             {
                 GameObject laser = Instantiate(laserPrefab, point.position, point.rotation);
-                LaserBehavior laserScript = laser.GetComponent<LaserBehavior>();
+                LaserBoss laserScript = laser.GetComponent<LaserBoss>();
                 if (laserScript != null)
                 {
                     laserScript.SetDamage(laserDamage);
